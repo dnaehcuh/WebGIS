@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实时路况</title>
+    <script src="./libs/include-openlayers-local.js"></script>
+    <script src="./libs/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="mapCon">
+      <button onclick="attrQuery()">实时路况</button>
+    </div>
+    <script>
+      const api_key = '9ae845d402bb4630ed5a482b17d6255a'
+      const TiandiMap_vec = new ol.layer.Tile({
+        title: '天地图矢量图层',
+        source: new ol.source.XYZ({
+          url:
+            'http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=' +
+            api_key,
+          wrapX: false,
+        }),
+      })
+      const TiandiMap_cva = new ol.layer.Tile({
+        title: '天地图矢量注记图层',
+        source: new ol.source.XYZ({
+          url:
+            'http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=' +
+            api_key,
+          wrapX: false,
+        }),
+      })
+      const docLayer1 = new Zondy.Map.Doc('', '武汉光谷道路', {
+        ip: '39.108.94.40',
+        port: '6163',
+      })
+      const docLayer2 = new Zondy.Map.Doc('', '实时路况线', {
+        ip: '39.108.94.40',
+        port: '6163',
+      })
+      const map = new ol.Map({
+        target: 'mapCon',
+        layers: [TiandiMap_vec, TiandiMap_cva, docLayer1],
+        view: new ol.View({
+          center: [0, 0],
+          zoom: 2.5,
+          projection: 'EPSG:4326',
+          minZoom: 1,
+        }),
+      })
+      //   let source = new ol.source.Vector({
+      //     wrapX: false,
+      //   });
+      //   let vector = new ol.layer.Vector({
+      //     source: source,
+      //   });
+
+      // for (a; a < 100; a++) {
+      //   map.addLayer(vector);
+      var i = 1
+      function attrQuery() {
+        // for (a; a < 100; a++) {
+        //   if (a % 2 == 0) {
+
+        if (i === 1) {
+          //   map.addLayer(vector);
+          //   let queryStruct = new Zondy.Service.QueryFeatureStruct();
+          //   queryStruct.IncludeGeometry = true;
+          //   queryStruct.IncludeAttribute = true;
+          //   queryStruct.IncludeWebGraphic = true;
+          //   let queryParam = new Zondy.Service.QueryParameter({
+          //     resultFormat: "json",
+          //     struct: queryStruct,
+          //   });
+          //   queryParam.pageIndex = 0;
+          //   queryParam.recordNumber = 20;
+          //   queryParam.where = "1>0";
+          //   let queryService = new Zondy.Service.QueryDocFeature(
+          //     queryParam,
+          //     "光谷智慧交通",
+          //     0,
+          //     {
+          //       ip: "localhost",
+          //       port: "6163",
+          //     }
+          //   );
+          //   queryService.query(querySuccess, queryError);
+          //   let info;
+          //   function queryError(e) {
+          //     alert(e);
+          //   }
+          //   function querySuccess(result) {
+          //     info = result;
+          //     console.log(result);
+
+          //     for (let i in result.SFEleArray) {
+          //       for (let j in info.SFEleArray[i].fGeom.RegGeom[0].Rings) {
+          //         const pointInfo = [];
+          //         for (let k in info.SFEleArray[i].fGeom.RegGeom[0].Rings[j]
+          //           .Arcs[0].Dots) {
+          //           pointInfo.push([
+          //             info.SFEleArray[i].fGeom.RegGeom[0].Rings[j].Arcs[0].Dots[k]
+          //               .x,
+          //             info.SFEleArray[i].fGeom.RegGeom[0].Rings[j].Arcs[0].Dots[k]
+          //               .y,
+          //           ]);
+          //         }
+          //         var Polygon = new ol.Feature({
+          //           geometry: new ol.geom.Polygon([pointInfo]),
+          //         });
+          //         Polygon.setStyle(
+          //           new ol.style.Style({
+          //             fill: new ol.style.Fill({
+          //               color: "rgba(255,0,0,0.5)",
+          //             }),
+          //             stroke: new ol.style.Stroke({
+          //               color: "#ffcc33",
+          //               width: 2,
+          //             }),
+          //             image: new ol.style.Circle({
+          //               radius: 7,
+          //               fill: new ol.style.Fill({
+          //                 color: "#ffcc33",
+          //               }),
+          //             }),
+          //           })
+          //         );
+
+          //         source.addFeature(Polygon);
+          //       }
+          //     }
+          //   }
+          // }
+          map.addLayer(docLayer2)
+        }
+        if (i === 2) {
+          map.removeLayer(docLayer2)
+        }
+        i++
+
+        if (i === 3) {
+          i = 1
+        }
+        // console.log(i);
+      }
+    </script>
+  </body>
+</html>

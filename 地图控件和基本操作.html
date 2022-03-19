@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="libs/include-openlayers-local.js"></script>
+    <style>
+      #mapCon {
+        width: 100%;
+        height: 95%;
+        position: absolute;
+      }
+      /* 缩放滑块控件ZoomSlider的样式，放置到缩放按钮之间实现导航条功能*/
+
+      #mapCon .ol-zoom .ol-zoom-out {
+        margin-top: 204px;
+      }
+
+      #mapCon .ol-zoomslider {
+        background-color: transparent;
+        top: 2.3em;
+      }
+
+      #mapCon .ol-touch .ol-zoom .ol-zoom-out {
+        margin-top: 212px;
+      }
+
+      #mapCon .ol-touch .ol-zoomslider {
+        top: 2.75em;
+      }
+
+      #mapCon .ol-zoom-in .ol.has-tooltip:hover[role="tooltip"],
+      #mapCon .ol-zoom-in .ol-has-tooltip:focus[role="tooltip"] {
+        top: 3px;
+      }
+
+      #mapCon .ol-zoom-out .ol-has-tooltip:hover[role="tooltip"],
+      #mapCon .ol-zoon-out .ol-has-out-tooltip:focus[role="tooltip"] {
+        top: 232px;
+      }
+
+      #mapCon .ol-zoom-extent {
+        top: 280px;
+      }
+      /* 鼠标位置控件层样式设置 */
+
+      #mouse-position {
+        float: left;
+        position: absolute;
+        bottom: 5px;
+        width: 200px;
+        height: 20px;
+        left: 300px;
+        /*在地图容器中的层，要设置z-index的值让其显示在地图上层*/
+        z-index: 2000;
+      }
+      /* 鼠标位置信息自定义样式设置 */
+
+      .custom-mouse-position {
+        color: rgb(0, 0, 0);
+        font-size: 16px;
+        font-family: "微软雅黑";
+      }
+
+      .s {
+        width: 100%;
+        text-align: right;
+        position: fixed;
+        bottom: 0%;
+      }
+      /* 自定义鹰眼样式
+
+      .ol-custom-overviewmap,
+      .ol-custom-overviewmap.ol-uncollapsible {
+        bottom: auto;
+        left: auto;
+        /* 右侧显示 */
+      /* right: 0; */
+      /* 顶部显示 */
+      /* bottom: 0; */
+      /* } */
+      /* 鹰眼控件展开时控件外框的样式 */
+
+      /* .ol-custom-overviewmap:not(.ol-collapsed) { */
+      /* border: 1px solid black; */
+      /* } */
+      /* 鹰眼控件中地图容器样式 */
+
+      /* .ol-custom-overviewmap .ol-overviewmap-map {
+        border: none;
+        width: 300px; */
+      /* } */
+      /* 鹰眼控件中显示当前窗口中主图区域的边框 */
+
+      /* .ol-custom-overviewmap .ol-overviewmap-box { */
+      /* border: 2px solid red; */
+      /* } */
+      /* 鹰眼控件展开时其控件按钮图标的样式 */
+
+      /* .ol-custom-overviewmap:not(.ol-collapsed) button { */
+      /* bottom: auto;
+        left: auto;
+        right: 1px;
+        top: 1px;
+      } */
+    </style>
+  </head>
+
+  <body>
+    <!-- <button onclick="zoomIn()">放大</button>
+     <button onclick="zoomOut()">缩小</button> -->
+
+    <!-- <button onclick="moveTowh()">武汉</button>
+    <button onclick="reset()">reset</button>
+    <button onclick="moveByExtent()">跳转</button>
+    <button onclick="getCurResolution()">获取分辨率</button>
+    <button onclick="getCurBound()">获取视图范围</button>
+    <button onclick="getMapDivInfo()">获取div容器大小</button>
+    <button onclick="addMapClick()">调用点击函数</button>
+    <button onclick="removeMapClick()">移出点击函数</button> -->
+    <div id="mapCon"></div>
+    <div class="s">
+      <button onclick="vector()">vec</button>
+      <button onclick="image()">img</button>
+    </div>
+    <!-- <div id="mapCon2" style="margin: auto;border: 1px solid red;"></div> -->
+    <!-- <div id="mouse-position"></div> -->
+
+    <script>
+      const TiandiMap_vec = new ol.layer.Tile({
+        title: "天地图矢量图层",
+        source: new ol.source.XYZ({
+          url:
+            "http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=" +
+            "a0223578705704127cb29fef0fd59782",
+          wrapX: false,
+        }),
+      });
+      const TiandiMap_cva = new ol.layer.Tile({
+        title: "天地图矢量注记图层",
+        source: new ol.source.XYZ({
+          url:
+            "http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=" +
+            "a0223578705704127cb29fef0fd59782",
+          wrapX: false,
+        }),
+      });
+      const TiandiMap_img = new ol.layer.Tile({
+        title: "天地图影像层",
+        source: new ol.source.XYZ({
+          url:
+            "http://t0.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=" +
+            "a0223578705704127cb29fef0fd59782",
+          wrapX: false,
+        }),
+      });
+      const TiandiMap_cia = new ol.layer.Tile({
+        title: "天地图层",
+        source: new ol.source.XYZ({
+          url:
+            "http://t0.tianditu.com/DataServer?T=cia_w&x={x}&y={y}&l={z}&tk=" +
+            "a0223578705704127cb29fef0fd59782",
+          wrapX: false,
+        }),
+      });
+      const doclayer = new Zondy.Map.Doc("", "world", {
+        ip: "localhost",
+        port: "6163",
+      });
+      const map = new ol.Map({
+        target: "mapCon",
+        layers: [TiandiMap_vec, TiandiMap_cva, TiandiMap_img, TiandiMap_cia],
+        view: new ol.View({
+          center: [0, 0],
+          zoom: 2.5,
+          projection: "EPSG:4326",
+          minZoom: 1,
+          maxZoom: 5,
+        }),
+      });
+      //制定范围缩放
+      const ZoomToExtent = new ol.control.ZoomToExtent({
+        extent: [-78.82, -40.85, 94.72, 60.59],
+      });
+      //实例化
+      map.addControl(ZoomToExtent);
+      //滑块控件
+      const zoomslider = new ol.control.ZoomSlider();
+      //实例化
+      map.addControl(zoomslider);
+
+      //鼠标样式
+      const mousePositionControl = new ol.control.MousePosition({
+        coordinateFormat: ol.coordinate.createStringXY(4),
+        peojection: "EPSG:4326",
+        className: "custom-mouse-position",
+        target: document.getElementById("mouse-position"),
+        undefinedHTML: "&nbsp;",
+      });
+      map.addControl(mousePositionControl);
+
+      //实时比例尺控件
+      const scaleLineControl = new ol.control.ScaleLine({
+        //比例尺单位
+        units: "metric",
+      });
+      map.addControl(scaleLineControl);
+
+      //鹰眼
+      //   const overviewMapControl = new ol.control.OverviewMap({
+      //     className: "ol-overviewmap ol-custom-overviewmap",
+      //     layers: [TiandiMap_img, TiandiMap_cia, doclayer],
+      //     collaspseLabel: "\u00BB",
+      //     label: "\u00AB",
+      //     collapsed: true,
+      //     view: new ol.View({
+      //       projection: "EPSG:4326",
+      //       minZoom: 1,
+      //     }),
+      //   });
+      //   map.addControl(overviewMapControl);
+
+      function vector() {
+        TiandiMap_img.setVisible(false);
+        TiandiMap_cia.setVisible(false);
+        TiandiMap_vec.setVisible(true);
+        TiandiMap_cva.setVisible(true);
+      }
+
+      function image() {
+        TiandiMap_img.setVisible(true);
+        TiandiMap_cia.setVisible(true);
+
+        TiandiMap_vec.setVisible(false);
+        TiandiMap_cva.setVisible(false);
+      }
+
+      // function addLayer() {
+      //     map.addLayer(tileLayer)
+      // }
+
+      // function removeLayer() {
+      //     map.removeLayer(tileLayer)
+      // }
+
+      // function zoomIn() {
+      //     const view = map.getView()
+      //     const zoom = view.getZoom()
+      //     view.setZoom(zoom + 1)
+      // }
+
+      // function zoomOut() {
+      //     const view = map.getView()
+      //     const zoom = view.getZoom()
+      //     view.setZoom(zoom - 1)
+      // }
+
+      // function moveTowh() {
+      //     const view = map.getView()
+      //     const wh = [114.6, 30.4]
+      //     view.setCenter(wh)
+      //     view.setZoom(10)
+      // }
+      // const view = map.getView()
+      // const center = view.getCenter()
+      // const zoom = view.getZoom()
+
+      // function reset() {
+      //     view.setCenter(center)
+      //     view.setZoom(zoom)
+      // }
+      // //根据范围跳转地图
+      // function moveByExtent() {
+      //     //定义范围
+      //     const extent = [130, 30, 140, 40]
+      //     view.fit(extent)
+      // }
+      // //获取分辨率
+      // function getCurResolution() {
+      //     const view = map.getView()
+      //     console.log(view.getResolution())
+      // }
+
+      // function getCurBound() {
+      //     const view = map.getView()
+
+      //     const ex = view.calculateExtent(map.getSize())
+      //     console.log(ex)
+      // }
+
+      // function getMapDivInfo() {
+      //     console.log(map.getSize())
+
+      // }
+
+      // function addMapClick() {
+      //     map.on('click', clickEvent)
+      // }
+
+      // function removeMapClick() {
+      //     map.un('click', clickEvent)
+      // }
+
+      // function clickEvent(e) {
+      //     console.log(e.coordinate)
+      // }
+    </script>
+  </body>
+</html>

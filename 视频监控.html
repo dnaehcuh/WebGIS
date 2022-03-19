@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./libs/include-openlayers-local.js"></script>
+    <style>
+      .ol-popup_camera {
+        position: absolute;
+        background-color: white;
+        -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 45px;
+        left: -50px;
+      }
+
+      .ol-popup_camera:after,
+      .ol-popup_camera:before {
+        top: 100%;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      /* :after 选择器向选定元素的最后子元素后面插入内容。 */
+
+      .ol-popup_camera:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      /* :before 选择器向选定元素的最后子元素前面插入内容。 */
+
+      .ol-popup_camera:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+
+      .ol-popup-closer_camera {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+
+      .ol-popup-closer_camera:after {
+        /* 后面插入: ✖ */
+        content: '✖';
+      }
+
+      #popup-content_camera {
+        font-size: 14px;
+        font-family: '宋体';
+      }
+
+      #popup-content_camera .markerInfo {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapCon">
+      <div id="popup_camera" class="ol-popup_camera">
+        <a href="#" id="popup-closer_camera" class="ol-popup-closer_camera"></a>
+        <div id="popup-content_camera"></div>
+      </div>
+    </div>
+    <script>
+      //天地图矢量图层
+      const TiandiMap_vec = new ol.layer.Tile({
+        title: '天地图矢量图层',
+        source: new ol.source.XYZ({
+          url:
+            'http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=' +
+            '2de2abae5bc275fb1869e99ae3df7f72',
+          wrapX: false,
+        }),
+      })
+
+      //天地图标注图层
+      const TiandiMap_cva = new ol.layer.Tile({
+        title: '天地图矢量注记图层',
+        source: new ol.source.XYZ({
+          url:
+            'http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=' +
+            '2de2abae5bc275fb1869e99ae3df7f72',
+          wrapX: false,
+        }),
+      })
+
+      //创建地图
+      const map = new ol.Map({
+        target: 'mapCon',
+        layers: [TiandiMap_vec, TiandiMap_cva],
+        view: new ol.View({
+          center: [114.415855, 30.508882],
+          zoom: 15,
+          projection: 'EPSG:4326',
+        }),
+      })
+
+      var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point([114.415855, 30.508882]),
+      })
+      //图文标注
+      iconFeature.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头1',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      )
+
+      //创建矢量标注的数据源
+      var vectorSource = new ol.source.Vector({
+        features: [iconFeature],
+        wrapX: false,
+      })
+      //创建矢量标注图层
+      var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+      })
+      //把矢量图层旅加到地图中
+      map.addLayer(vectorLayer)
+
+      //实现popup内htmL元素显示
+      var container = document.getElementById('popup_camera')
+      var content = document.getElementById('popup-content_camera')
+      var closer = document.getElementById('popup-closer_camera')
+
+      var popup = new ol.Overlay({
+        //要转换成overlay的HTML元素
+        element: container,
+        //当前窗口可见 autoPan:true,
+        autoPan: true,
+        //Popup放置的位置
+        positioning: 'bottom-center',
+        //是否应该停止事件传播到地图窗口
+        stopEvent: false,
+        autoPanAnimation: {
+          //当Popup超出地图边界时，为了Popup全部可见，地图移动的速度
+          duration: 250,
+        },
+      })
+      map.addOverlay(popup)
+
+      function setInfo() {
+        const info = `          
+            <div class="markerInfo"><h2>摄像头1详细信息:</h2>............</div>
+            <video src="/images/bilibili.mp4" autoplay mute controls loop width="500px"></video>
+        `
+        //在指定地方插入html标签语句 insertAdajcentHTML(swhere, stext)
+        //swhere: 指定插入html标签语句的地方，stext：要插入的内容
+        //beforeEnd: 插入到标签结束标记前
+        content.insertAdjacentHTML('beforeEnd', info)
+      }
+
+      var clickMaker = function (evt) {
+        //判断当前单击处是否有要素,擒获到要素时弹出popup
+        var feature = map.forEachFeatureAtPixel(
+          evt.pixel,
+          function (feature, Layer) {
+            return feature
+          }
+        )
+        if (feature) {
+          //清空popup的容器内的内容
+          content.innerHTML = ''
+          //在popup中加载当前要素的具体信息
+          setInfo()
+          if (popup.getPosition() === undefined) {
+            //设置popup的位置------从获取到的feature中获取坐标
+            popup.setPosition(feature.getGeometry().getCoordinates())
+          }
+        }
+      }
+      //事件监听，注册点击事件
+      map.on('click', clickMaker)
+
+      //添加关闭按钮的单击事件（隐藏popup）
+      closer.onclick = function () {
+        //未定义popup位置
+        popup.setPosition(undefined)
+      }
+    </script>
+  </body>
+</html>

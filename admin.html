@@ -1,0 +1,2963 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./libs/include-openlayers-local.js"></script>
+    <link rel="stylesheet" href="./infont/iconfont.css" />
+    <!-- <link rel="stylesheet" href="./infont/iconfont.css" /> -->
+    <link
+      rel="stylesheet"
+      href="./css/bower_components/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./css/bower_components/font-awesome/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./css/bower_components/Ionicons/css/ionicons.min.css"
+    />
+    <link rel="stylesheet" href="./css/dist/css/AdminLTE.min.css" />
+    <link rel="stylesheet" href="./css/dist/css/skins/skin-blue.min.css" />
+    <link rel="stylesheet" href="./css/发布公告.css" />
+    <link rel="stylesheet" href="./css/查看公告.css" />
+    <script src="./libs/include-openlayers-local.js"></script>
+    <script src="./libs/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/xuanfutankuang.css" />
+    <link rel="stylesheet" href="./libs/ol.css" />
+    <!-- <link href="css/base.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <script src="js/main.js" type="text/javascript"></script> -->
+    <script src="./libs/include-lib-local.js"></script>
+    <script src="./libs/jquery-1.11.2.min.js"></script>
+    <script src="./libs/MapGis_ol_product.js"></script>
+    <script src="./libs/FileSaver.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script src="./libs/jquery-easyui-1.8.6/jquery.easyui.min.js"></script>
+    <script src="./js/ajax.js"></script>
+
+    <title>管理员主页</title>
+    <style>
+      /* * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: normal;
+        font-style: normal;
+        font-size: 14px;
+        line-height: 1.5;
+        font-family: 'Helvetica Neue', Helvetica, Arial, 'Microsoft YaHei',
+          sans-serif;
+        color: #333333;
+        background-color: #ffffff;
+        min-width: 1226px;
+      }
+      a {
+        text-decoration: none;
+      }
+      ul,
+      ol {
+        list-style: none;
+      }      */
+      /*
+      .headSearch {
+        width: 100%;
+        height: 60px;
+        margin: 0 auto;
+        background-color: white;
+        z-index: 10;
+      }
+
+      .logo {
+        float: left;
+        display: block;
+        width: 30px;
+        height: 50px;
+        margin-top: 10px;
+        z-index: 100;
+        margin-left: 50/*px;
+      } */
+      .img {
+        margin-left: -9px;
+        margin-top: 5px;
+        width: 40px;
+        height: 40px;
+        float: left;
+      }
+
+      /*
+      .logo_text {
+        float: left;
+        margin-left: 28px;
+        margin-top: 20px;
+      }*/
+      #head_menu .searchBox {
+        float: right;
+        line-height: 10px;
+        font-size: 0;
+        position: absolute;
+        margin-top: -7px;
+        margin-left: 1180px;
+      }
+
+      #head_menu .searchBox input[type='search'] {
+        /* 搜索框 */
+        width: 200px;
+        height: 35px;
+        margin-right: 255px;
+        margin-top: 15px;
+        border: 1px solid #000000;
+        line-height: 50px;
+        outline: none;
+        /* padding: 0 10px; */
+        position: absolute;
+        box-sizing: border-box;
+        top: 0;
+        right: 49px;
+        transform: all 0.2s;
+        border-radius: 7px;
+      }
+
+      #head_menu .searchBox input[type='search']:hover {
+        /* border: 1.5px solid #ff6700; */
+        border: 1.5px solid rgb(178, 152, 115);
+        /* border-color: #b0b0b0; */
+      }
+
+      #head_menu .searchBox input[type='submit'] {
+        width: 35px;
+        height: 35px;
+        margin-right: 300px;
+        margin-top: 15px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: 1px solid grey;
+        font-family: 'iconfont' !important;
+        font-size: 24px;
+        /* margin-left: -20px; */
+        color: #616161;
+        background-color: #ffffff;
+        line-height: 24px;
+        outline: 0;
+        cursor: pointer;
+        transform: all 0.2s;
+        border-bottom-right-radius: 7px;
+        border-top-right-radius: 7px;
+      }
+
+      #head_menu .searchBox input[type='submit']:hover {
+        border-color: rgb(178, 152, 115);
+        background-color: rgb(178, 152, 115);
+        color: #ffffff;
+      }
+
+      header nav #nav_bar {
+        width: 790px;
+        float: left;
+      }
+
+      /* header nav #nav_helloadmin{
+        position:
+      } */
+      /* .headSearch ul li a:hover {
+        color: blue;
+      } */
+      /* .iconfont {
+        font-family: 'iconfont' !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      } */
+      .nav li {
+        float: left;
+        width: 110px;
+        height: 50px;
+        list-style: none;
+        /* font-family: 'iconfont'; */
+      }
+
+      .nav li .nav_choice {
+        margin-top: 0px;
+        margin-left: 0px;
+        font-size: 18px;
+        color: #333333;
+        width: 110px;
+        height: 50px;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        text-decoration: none;
+      }
+
+      .nav li .nav_subchoice {
+        font-size: 16px;
+        line-height: 47px;
+        margin-top: 20px;
+        margin-left: 20px;
+      }
+
+      .nav ul {
+        display: none;
+      }
+
+      .nav li:hover ul {
+        display: block;
+      }
+
+      /* 顶栏悬停时才显示的菜单栏的格式设置 */
+      .nav li:hover .up li {
+        border: 1px solid rgb(69, 69, 69);
+        position: relative;
+        left: -40px;
+      }
+
+      .nav li:hover ul .nav_choice {
+        font-size: 16px;
+        margin-top: -30px;
+        margin-left: 0px;
+        color: #333333;
+      }
+
+      .nav li:hover ul a:hover {
+        color: rgb(178, 152, 115);
+      }
+
+      .up li {
+        background-color: rgb(255, 255, 255, 0.7);
+        z-index: 100;
+      }
+
+      /*
+      .user {
+        float: right;
+        margin-right: 30px;
+      } */
+      /* .user .nav .name .huser {
+        font-size: 16px;
+      } */
+      .nav .nav_choice .up {
+        font-size: 16px;
+      }
+
+      #mapCon {
+        z-index: -1;
+        width: 100%;
+        height: 95%;
+        /* position: absolute; */
+        background-color: hsl(216, 60%, 90%);
+      }
+
+      /* #mapCon {
+        width: 100%;
+        height: 95%;
+
+      } */
+      /* 缩放滑块控件ZoomSlider的样式，放置到缩放按钮之间实现导航条功能*/
+
+      #mapCon .ol-zoom .ol-zoom-out {
+        margin-top: 204px;
+      }
+
+      #mapCon .ol-zoomslider {
+        background-color: transparent;
+        top: 2.3em;
+      }
+
+      #mapCon .ol-touch .ol-zoom .ol-zoom-out {
+        margin-top: 212px;
+      }
+
+      #mapCon .ol-touch .ol-zoomslider {
+        top: 2.75em;
+      }
+
+      #mapCon .ol-zoom-in .ol.has-tooltip:hover[role='tooltip'],
+      #mapCon .ol-zoom-in .ol-has-tooltip:focus[role='tooltip'] {
+        top: 3px;
+      }
+
+      #mapCon .ol-zoom-out .ol-has-tooltip:hover[role='tooltip'],
+      #mapCon .ol-zoon-out .ol-has-out-tooltip:focus[role='tooltip'] {
+        top: 232px;
+      }
+
+      #mapCon .ol-zoom-extent {
+        top: 280px;
+      }
+
+      /* 鼠标位置控件层样式设置 */
+
+      #mouse-position {
+        float: left;
+        position: absolute;
+        bottom: 5px;
+        width: 200px;
+        height: 20px;
+        left: 300px;
+        /*在地图容器中的层，要设置z-index的值让其显示在地图上层*/
+        z-index: 2000;
+      }
+
+      /* 鼠标位置信息自定义样式设置 */
+
+      .custom-mouse-position {
+        color: rgb(0, 0, 0);
+        background-color: rgba(red, green, blue, 0);
+        font-size: 16px;
+        font-family: '微软雅黑';
+      }
+
+      .s {
+        width: 100%;
+        text-align: right;
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        /* margin-left: 1000px;
+        margin-top: 400px; */
+        /*
+        position: absolute; */
+      }
+
+      #qiehuan_vecimg {
+        height: 60px;
+        width: 90px;
+        /* color: rgb(250, 250, 250); */
+        text-shadow: 5px 5px 5px rgba(255, 255, 255, 0.8);
+        font-weight: bold;
+        border: 3px solid rgb(255, 255, 255);
+        border-radius: 2px;
+        /* background-color: rgba(88, 142, 206, 0.6); */
+        background-image: url(./images/button_img.jpg);
+        background-size: 100% 100%;
+      }
+
+      /* .usermanage {
+        float: right;
+        margin-right: 140px;
+      } */
+      .navbar-custom-menu {
+        float: right;
+        margin-top: -50px;
+        margin-left: 1000px;
+        /* width:200px; */
+      }
+
+      /* 工具箱测量值文本框样式 */
+      .tooltip-static {
+        background-color: #ffcc33;
+        color: rgba(0, 0, 0, 0.8);
+        border: 1px solid white;
+      }
+
+      .toolboxxuanzekuang {
+        /* left: 20px; */
+        height: 35px;
+        width: 110px;
+        border: 2px solid rgba(132, 191, 247, 0.7);
+        border-radius: 3px;
+      }
+
+      #test {
+        width: 120px;
+        position: absolute;
+        top: 12px;
+        left: 800px;
+        z-index: 10000;
+        background: (60, 141, 188);
+        border-radius: 3px;
+        border: solid (60, 141, 188);
+        /* font-style: normal; */
+        width: 110px;
+        height: 50px;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+      }
+
+      /* 事件添加 */
+      .pop_wfy {
+        width: 400px;
+        height: 400px;
+        /* border: 2px solid rgb(119, 119, 119); */
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        /* background-color: rgb(60, 141, 188); */
+        background-color: rgb(173, 211, 233);
+        z-index: 1000;
+        text-align: center;
+        box-shadow: 0px 0px 5px rgb(180, 180, 180);
+        border-radius: 5px;
+      }
+
+      .ol-popup-closer_wfy {
+        text-decoration: none;
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        /* background-color: rgb(184, 8, 8); */
+        width: 48px;
+        /* border: 1px solid rgb(119, 119, 119); */
+      }
+
+      .ol-popup-closer_wfy:after {
+        /* 后面插入: ✖ */
+        content: '✖';
+        margin-left: 2px;
+        color: black;
+      }
+
+      #popup-content_wfy {
+        width: 380px;
+        height: 300px;
+        margin: 32px 9px 12px 10px;
+        background-color: white;
+        border-radius: 5px;
+        padding-top: 4px;
+        /* border: 2px solid rgb(119, 119, 119); */
+      }
+
+      #ok {
+        width: 130px;
+        height: 40px;
+        font-size: 17px;
+        background-color: rgb(60, 141, 188);
+        border: none;
+        color: white;
+        border-radius: 5px;
+      }
+
+      #cancel {
+        width: 130px;
+        height: 40px;
+        font-size: 17px;
+        margin-left: 50px;
+        background-color: rgb(60, 141, 188);
+        border: none;
+        color: white;
+        border-radius: 5px;
+      }
+
+      #biao_wfy {
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      #biao_wfy tr {
+        height: 33px;
+      }
+
+      #biao_wfy td.t1_wfy {
+        width: 100px;
+      }
+
+      #biao_wfy select {
+        width: 100%;
+      }
+
+      .sidebar-menu li {
+        color: #ffffff;
+        list-style: none;
+      }
+
+      /* 事件查询开始 */
+      #dialogsjcx {
+        width: 65%;
+        position: absolute;
+        /* top: 10%; */
+        min-height: 300px;
+        max-height: 300px;
+        left: 20%;
+        bottom: 0%;
+        z-index: 10000000;
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 5px;
+        border: 1px solid #eec;
+      }
+
+      #dialogsjcx #newtable {
+        border: none;
+      }
+
+      #dialogsjcx #dlg_top {
+        background-color: rgb(173, 211, 233);
+        padding-top: 5px;
+        height: 35px;
+      }
+
+      #dlg_top #relitu,
+      #tjtyf,
+      #tjtsj {
+        width: 130px;
+        height: 24px;
+        font-size: 15px;
+        background-color: rgb(60, 141, 188);
+        border: none;
+        color: white;
+        border-radius: 5px;
+      }
+
+      #dlg_top #relitu {
+        margin-left: 20px;
+      }
+      #dlg_top #tjtyf {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      #rltlevel {
+        width: 150px;
+        position: absolute;
+        top: 80px;
+        left: 300px;
+        z-index: 10000000;
+        color: white;
+        font-size: 14px;
+        background-color: rgba(31, 23, 23, 0.85);
+        border-radius: 3px;
+        border: 1px solid #eec;
+        border-radius: 10px;
+      }
+
+      #main {
+        width: 300px;
+        position: absolute;
+        top: 20%;
+        left: 20px;
+        z-index: 1000000;
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 3px;
+        border: 1px solid #eec;
+      }
+
+      #dlg_top #dlg_btn_closee {
+        border: 1px solid rgb(60, 141, 188);
+      }
+
+      #dlg_top #dlg_btn_maxx {
+        border: 1px dashed rgb(60, 141, 188);
+      }
+
+      .dlg_contentzy #newtable,
+      .dlg_contentzy #newtable th,
+      .dlg_contentzy #newtable td {
+        border: none;
+        text-align: center;
+        border-bottom: 1px solid rgb(60, 141, 188);
+      }
+
+      #newtable #tr1 {
+        font-weight: bold;
+      }
+      /* 事件查询结束 */
+
+      /* 事件更新 */
+      .pop_hll {
+        width: 400px;
+        height: 400px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgb(173, 211, 233);
+        z-index: 1000;
+        text-align: center;
+        box-shadow: 0px 0px 5px rgb(180, 180, 180);
+        border-radius: 5px;
+      }
+
+      .ol-popup-closer_hll {
+        text-decoration: none;
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        width: 48px;
+      }
+
+      .ol-popup-closer_hll:after {
+        /* 后面插入: ✖ */
+        content: '✖';
+        margin-left: 2px;
+        color: black;
+      }
+
+      #popup-content_hll {
+        width: 380px;
+        height: 300px;
+        margin: 32px 9px 12px 10px;
+        background-color: white;
+        border-radius: 5px;
+        padding-top: 4px;
+      }
+
+      #ok_hll {
+        width: 130px;
+        height: 40px;
+        font-size: 17px;
+        margin-left: 50px;
+        background-color: rgb(60, 141, 188);
+        border: none;
+        color: white;
+        border-radius: 5px;
+      }
+
+      #cancel_hll {
+        width: 130px;
+        height: 40px;
+        font-size: 17px;
+        margin-left: 50px;
+        background-color: rgb(60, 141, 188);
+        border: none;
+        color: white;
+        border-radius: 5px;
+        margin-left: 50px;
+      }
+
+      #biao_hll {
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      #biao_hll tr {
+        height: 33px;
+      }
+
+      #biao_hll td.t1 {
+        width: 100px;
+      }
+
+      #biao_hll select {
+        width: 100%;
+      }
+
+      #type1 {
+        width: 250px;
+      }
+
+      /* 视频监控 */
+      .ol-popup_camera {
+        position: absolute;
+        background-color: white;
+        -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 45px;
+        left: -50px;
+      }
+
+      .ol-popup_camera:after,
+      .ol-popup_camera:before {
+        top: 100%;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      /* :after 选择器向选定元素的最后子元素后面插入内容。 */
+
+      .ol-popup_camera:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+
+      /* :before 选择器向选定元素的最后子元素前面插入内容。 */
+
+      .ol-popup_camera:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+
+      .ol-popup-closer_camera {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+
+      .ol-popup-closer_camera:after {
+        /* 后面插入: ✖ */
+        content: '✖';
+      }
+
+      #popup-content_camera {
+        font-size: 14px;
+        font-family: '宋体';
+      }
+
+      #popup-content_camera .markerInfo {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body class="hold-transition skin-blue sidebar-mini">
+    <!-- 发布公告 -->
+    <div
+      id="dia_gglog"
+      class="dia_gglog"
+      minheight="320"
+      minwidth="660"
+      style="display: none"
+    >
+      <div id="dlg_gg_top" class="dlg_gg_top">
+        <!-- <img class="dlg_gg_logo" src="images/ico_logo.png" /> -->
+        <label class="dlg_gg_title">发布公告</label>
+        <input
+          class="dlg_gg_btn_close dlg_gg_btn_ico dlg_gg_btn_close_top"
+          type="button"
+        />
+        <input class="dlg_gg_btn_ico dlg_gg_btn_max_top" type="button" />
+      </div>
+
+      <div class="dlg_gg_content">
+        <textarea
+          style="
+            display: inherit;
+            margin: 10px;
+            line-height: 26px;
+            background: transparent;
+            width: 750px;
+            height: 240px;
+          "
+          id="GongGaoLan"
+        >
+尊敬的居民及商户：
+xxxx区污水治理工程是市政府民生工程，根据本工程的施工作业需要，将于2021年8月4日对xx村路段道路进行开挖施工；为确保正常施工、保证施工安全，将分段对部分道路进行封闭、半封闭施工，请广大市民进入施工路段，注意安全，按照交通标志指示信息绕行，因工程施工带来的不便，敬请各位居民、商户谅解和支持。
+
+　　谢谢合作，特此通告！
+
+　　                                                                                                        xxxx建筑工程有限责任公司
+                                                                                                             xx年xx月xx日</textarea
+        >
+      </div>
+      <div class="dlg_gg_bottom">
+        <input id="dlg_gg_submit" class="btn" type="button" value="发布" />
+        <input class="dlg_gg_btn_close btn" type="button" value="关闭" />
+      </div>
+      <div id="dlg_gg_right"></div>
+      <div id="dlg_gg_right_bottom"></div>
+      <div id="dlg_gg_bottom"></div>
+    </div>
+
+    <!-- 事件查询开始 -->
+    <div id="rltlevel" class="rlt" style="display: none">
+      <div>
+        <label class="lb">热点半径：</label><br />
+        <input type="range" id="radius" min="1" max="50" step="1" value="10" />
+      </div>
+      <div>
+        <label class="lb">模糊尺寸：</label><br />
+        <input type="range" id="blur" min="1" max="50" step="1" value="15" />
+      </div>
+    </div>
+    <!-- 统计图 -->
+    <div
+      id="main"
+      class="tjtfw"
+      style="width: 800px; height: 400px; display: none"
+    ></div>
+    <!--弹出框-->
+    <div
+      id="dialogsjcx"
+      class="dialog"
+      minheight="320"
+      minwidth="1660"
+      style="display: none"
+    >
+      <div id="dlg_top" class="dlg_top">
+        <label class="dlg_title"></label>
+        <input
+          id="relitu"
+          type="button"
+          value="生成热力图"
+          onclick="relitu1()"
+        />
+        <input
+          id="tjtyf"
+          type="button"
+          value="按月份生成统计图"
+          onclick="tonjitu_yuefen()"
+        />
+        <input
+          id="tjtsj"
+          type="button"
+          value="按事件生成统计图"
+          onclick="tongjitu_shijian()"
+        />
+
+        <input
+          class="dlg_btn_close dlg_btn_ico dlg_btn_close_top"
+          id="dlg_btn_closee"
+          type="button"
+          onclick="stopqueryVectorLayerByPnt()"
+        />
+        <input
+          class="dlg_btn_ico dlg_btn_max_top"
+          id="dlg_btn_maxx"
+          type="button"
+        />
+      </div>
+      <div
+        class="dlg_contentzy"
+        style="
+          position: relative;
+          max-height: 400px;
+          min-height: 400px;
+          overflow-y: auto;
+        "
+      >
+        <table id="newtable">
+          <!--设置边框宽度为1-->
+          <tr id="tr1">
+            <!--新建一行-->
+            <td>
+              <font id="sid">事件编号</font>
+            </td>
+            <td>
+              <font id="stype">事件类型</font>
+            </td>
+            <td>
+              <font id="slevel">事件等级</font>
+            </td>
+            <td>
+              <font id="stime">发生时间</font>
+            </td>
+            <td>
+              <font id="splace">发生地点</font>
+            </td>
+            <td>
+              <font id="carnumber">车牌号</font>
+            </td>
+            <td>
+              <font id="sdriver">驾驶员</font>
+            </td>
+            <td>
+              <font id="scondition">处理状态</font>
+            </td>
+            <td id="do">操作</td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="dlg_right"></div>
+      <div id="dlg_right_bottom"></div>
+      <div id="dlg_bottom"></div>
+    </div>
+    <!-- 事件查询结束 -->
+    <!-- <div id="test"><a href="*">报告路况</a></div> -->
+    <div
+      id="dialog"
+      class="dialog mark-for-close"
+      minheight="320"
+      minwidth="660"
+    >
+      <div id="dlg_top" class="dlg_top">
+        <img class="dlg_logo" src="./images/baogaolukuang_item.jpg" />
+        <label class="dlg_title">报告路况</label>
+        <input
+          class="dlg_btn_close dlg_btn_ico dlg_btn_close_top"
+          type="button"
+        />
+        <input class="dlg_btn_ico dlg_btn_max_top" type="button" />
+      </div>
+      <input type="text" value="" id="event_type" placeholder="事件类型" />
+      <input type="text" value="" id="event_address" placeholder="事件地址" />
+      <input type="text" value="" id="event_mark" placeholder="建筑标注" />
+      <input
+        type="text"
+        value=""
+        id="event_describe"
+        placeholder="事件描述"
+      /><br />
+
+      <input
+        id="btn_show_dialog"
+        type="button"
+        value="show dialog"
+        class="btn"
+        style="margin-left: 50px; margin-top: 100px"
+      />
+      <div class="dlg_bottom">
+        <input id="dlg_submit" class="btn" type="button" value="报告路况" />
+        <input
+          id="real_time_roadcondition"
+          class="btn"
+          type="button"
+          value="实时路况"
+        />
+
+        <input
+          class="dlg_btn_close btn"
+          type="button"
+          value="关闭"
+          onclick="$('.mark-for-close').hide()"
+        />
+      </div>
+      <div id="dlg_right"></div>
+      <div id="dlg_right_bottom"></div>
+      <div id="dlg_bottom"></div>
+    </div>
+
+    <!-- <div id="dialog1">test</div> -->
+    <div class="wrapper">
+      <!-- 公告表格 -->
+      <table id="noticeTable_qw" class="table-striped" style="display: none">
+        <thead>
+          <tr id="noticeTr">
+            <th>公告内容</th>
+            <th>公告时间</th>
+            <th>公告详情</th>
+          </tr>
+        </thead>
+        <tbody id="notice_tbody"></tbody>
+      </table>
+      <!--公告弹出框-->
+      <div
+        id="dia_qwlog"
+        class="dia_qwlog"
+        minheight="320"
+        minwidth="660"
+        style="display: none"
+      >
+        <div id="dlg_qw_top" class="dlg_qw_top">
+          <!-- <img class="dlg_qw_logo" src="images/ico_logo.png" /> -->
+          <label class="dlg_qw_title">查看公告</label>
+          <!-- <input
+        class="dlg_qw_btn_close dlg_qw_btn_ico dlg_qw_btn_close_top"
+        type="button"
+      />
+      <input class="dlg_qw_btn_ico dlg_qw_btn_max_top" type="button" /> -->
+        </div>
+        <div class="dlg_qw_content">
+          <textarea
+            style="
+              display: inherit;
+              margin: 10px;
+              line-height: 26px;
+              background: transparent;
+              width: 750px;
+              height: 240px;
+            "
+            id="GongGaoLanLQW"
+          ></textarea>
+        </div>
+        <div class="dlg_qw_bottom">
+          <input
+            id="dlg_qw_submit"
+            class="btn"
+            type="button"
+            value="我已了解"
+          />
+          <input class="dlg_qw_btn_close btn" type="button" value="关闭公告" />
+        </div>
+        <div id="dlg_qw_right"></div>
+        <div id="dlg_qw_right_bottom"></div>
+        <div id="dlg_qw_bottom"></div>
+
+        <!-- <div id="test"><a href="#">报告路况</a></div> -->
+        <div id="dialog" class="dialog" minheight="320" minwidth="660">
+          <div id="dlg_top" class="dlg_top">
+            <img class="dlg_logo" src="./images/baogaolukuang_item.jpg" />
+            <label class="dlg_title">报告路况</label>
+            <input
+              class="dlg_btn_close dlg_btn_ico dlg_btn_close_top"
+              type="button"
+            />
+            <input class="dlg_btn_ico dlg_btn_max_top" type="button" />
+          </div>
+          <input type="text" value="" id="event_type" placeholder="事件类型" />
+          <input
+            type="text"
+            value=""
+            id="event_address"
+            placeholder="事件地址"
+          />
+          <input type="text" value="" id="event_mark" placeholder="建筑标注" />
+          <input
+            type="text"
+            value=""
+            id="event_describe"
+            placeholder="事件描述"
+          /><br />
+
+          <input
+            id="btn_show_dialog"
+            type="button"
+            value="show dialog"
+            class="btn"
+            style="margin-left: 50px; margin-top: 100px"
+          />
+          <div class="dlg_bottom">
+            <input id="dlg_submit" class="btn" type="button" value="报告路况" />
+            <input
+              id="real_time_roadcondition"
+              class="btn"
+              type="button"
+              value="实时路况"
+            />
+
+            <input class="dlg_btn_close btn" type="button" value="关闭" />
+          </div>
+          <div id="dlg_right"></div>
+          <div id="dlg_right_bottom"></div>
+          <div id="dlg_bottom"></div>
+        </div>
+      </div>
+
+      <!-- 顶栏 -->
+      <header class="main-header">
+        <!-- 顶栏最左-->
+        <a href="#" class="logo">
+          <img class="img" src="./images/交通中心.jpg" alt="" />
+          <span class="logo-lg">光谷智慧交通系统</span>
+        </a>
+
+        <!-- 顶栏三道杠 -->
+        <nav class="navbar navbar-static-top" id="head_menu" role="navigation">
+          <ul class="nav" id="nav_bar">
+            <li>
+              <a href="#" class="nav_choice"
+                >路况管理<span class="iconfont">&#xe602;</span></a
+              >
+              <ul class="up">
+                <li>
+                  <a href="#" class="nav_subchoice" onclick="attrQuery()"
+                    >实时路况</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="nav_subchoice" onclick="showDialog()"
+                    >报告路况</a
+                  >
+                  <!-- <div
+                    id="dialog"
+                    class="dialog"
+                    minheight="320"
+                    minwidth="660"
+                  >
+                    <div id="dlg_top" class="dlg_top">
+                      <img class="dlg_logo" src="images/ico_logo.png" />
+                      <label class="dlg_title">弹出窗口</label>
+                      <input
+                        class="dlg_btn_close dlg_btn_ico dlg_btn_close_top"
+                        type="button"
+                      />
+                      <input
+                        class="dlg_btn_ico dlg_btn_max_top"
+                        type="button"
+                      />
+                    </div>
+                    <input
+                      type="text"
+                      value=""
+                      id="event_type"
+                      placeholder="事件类型"
+                    />
+                    <input
+                      type="text"
+                      value=""
+                      id="event_address"
+                      placeholder="事件地址"
+                    />
+                    <input
+                      type="text"
+                      value=""
+                      id="event_mark"
+                      placeholder="建筑标注"
+                    />
+                    <input
+                      type="text"
+                      value=""
+                      id="event_describe"
+                      placeholder="事件描述"
+                    /><br />
+                    <input
+                      id="btn_show_dialog"
+                      type="button"
+                      value="show dialog"
+                      class="btn"
+                      style="margin-left: 50px; margin-top: 100px"
+                    />
+                    <div class="dlg_bottom">
+                      <input
+                        id="dlg_submit"
+                        class="btn"
+                        type="button"
+                        value="报告路况"
+                      />
+                      <input
+                        id="real_time_roadcondition"
+                        class="btn"
+                        type="button"
+                        value="实时路况"
+                      />
+                      <input
+                        class="dlg_btn_close btn"
+                        type="button"
+                        value="关闭"
+                      />
+                    </div>
+                    <div id="dlg_right"></div>
+                    <div id="dlg_right_bottom"></div>
+                    <div id="dlg_bottom"></div>
+                  </div> -->
+                </li>
+
+                <!-- <li>
+                  <a href="#" class="nav_subchoice" onclick="showDialog()"
+                    >test</a
+                  >
+                  <div id="dalog1" onclick="showDialog()">test</div>
+                </li> -->
+                <li><a href="#" class="nav_subchoice">路况信息</a></li>
+                <li>
+                  <a href="#" class="nav_subchoice" onclick="camera_attrQuery()"
+                    >视频监控</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="nav_choice">事件管理</a>
+              <ul class="up">
+                <li>
+                  <a
+                    href="#"
+                    class="nav_subchoice"
+                    onclick="queryVectorLayerByPnt()"
+                    >事件查询</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="nav_subchoice" onclick="addFeature_wfy()"
+                    >事件添加</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="nav_subchoice" onclick="startQuery_hll()"
+                    >事件更新</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="nav_choice">公告管理</a>
+              <ul class="up">
+                <li>
+                  <a href="#" class="nav_subchoice" id="btn_show_dia_gglog"
+                    >发布公告</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="nav_subchoice" id="btn_notice_qw"
+                    >查看公告</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="nav_choice" onclick="xianshi()">工具箱</a>
+
+              <div id="menu" style="display: none" class="suibianshezhi">
+                <select id="type" class="toolboxxuanzekuang">
+                  <option value="length">测量长度</option>
+                  <option value="area">测量面积</option>
+                  <option value="stop">停止测量</option>
+                  <option value="savepng">保存为图片</option>
+                </select>
+              </div>
+            </li>
+            <li class="name">
+              <a href="/index_manage.html" class="nav_choice">用户管理</a>
+            </li>
+          </ul>
+          <div class="searchBox">
+            <input type="search" />
+            <input type="submit" placeholder="请搜索位置..." value="&#xe600;" />
+          </div>
+          <div class="navbar-custom-menu" style="width: 150px">
+            <ul class="nav navbar-nav" id="nav_helloadmin" style="width: 150px">
+              <li class="dropdown user user-menu" style="width: 150px">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img
+                    src="./css/dist/img/avatar5.png"
+                    class="user-image"
+                    alt="User Image"
+                  />
+                  <span class="hidden-xs" id="username-span-wxh"
+                    >你好，管理员</span
+                  >
+                </a>
+                <ul class="up">
+                  <li style="left: -5px">
+                    <a
+                      href="http://101.200.150.149:8011/index_login.html"
+                      class="nav_subchoice"
+                      id="logout-admin-wxh"
+                      >退出登录</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <!-- 左栏 -->
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <!-- 左侧目录 -->
+          <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">工作空间</li>
+            <li>
+              <!-- 地图文档 -->
+              <div id="layerControl" class="layerControl">
+                <div class="title"><label>图层列表</label></div>
+                <ul id="layerTree" class="layerTree"></ul>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </aside>
+      <div class="content-wrapper">
+        <div id="mapCon">
+          <div id="popup_camera" class="ol-popup_camera">
+            <a
+              href="#"
+              id="popup-closer_camera"
+              class="ol-popup-closer_camera"
+            ></a>
+            <div id="popup-content_camera"></div>
+          </div>
+        </div>
+      </div>
+      <!-- <div id="dialog">t</div> -->
+      <!-- <input
+            id="btn_show_dialog"
+            type="button"
+            value="show dialog"
+            class="btn"
+            style="margin-left: 50px; margin-top: 100px"
+          /> -->
+
+      <div class="s">
+        <button onclick="qiehuan_vecimg()" id="qiehuan_vecimg">切换底图</button>
+      </div>
+
+      <!-- 最底 -->
+      <footer class="main-footer">
+        @ 2021 Huazhong Agricultural University
+      </footer>
+
+      <!-- 添加事件弹窗 -->
+      <div id="show_wfy" style="display: none">
+        <div class="pop_wfy">
+          <!-- <p>事件添加</p> -->
+          <form action="">
+            <a href="#" id="popup-closer_wfy" class="ol-popup-closer_wfy"></a>
+            <div id="popup-content_wfy">
+              <table id="biao_wfy">
+                <tr>
+                  <td class="t1_wfy">事件编号</td>
+                  <td>
+                    <textarea name="" id="" cols="30" rows="1"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1_wfy">事件等级</td>
+                  <td>
+                    <select>
+                      <option value="0">1</option>
+                      <option value="1">2</option>
+                      <option value="2">3</option>
+                      <option value="3">4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1_wfy">事件类型</td>
+                  <td>
+                    <textarea name="" id="" cols="30" rows="1"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1_wfy">发生时间</td>
+                  <td>
+                    <textarea name="" id="" cols="30" rows="1"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1_wfy">发生地点</td>
+                  <td>
+                    <textarea name="" id="" cols="30" rows="1"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1_wfy">车牌号</td>
+                  <td>
+                    <textarea name="" id="" cols="30" rows="1"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1_wfy">驾驶员</td>
+                  <td>
+                    <textarea name="" id="" cols="30" rows="1"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1_wfy">处理状态</td>
+                  <td>
+                    <select font-size="24px">
+                      <option class="tttype" value="0">❓待处理</option>
+                      <option value="1">⚠️处理中</option>
+                      <option value="2">✅已归档</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <input id="ok" type="submit" value="确&nbsp&nbsp定" />
+            <input id="cancel" type="reset" value="重&nbsp&nbsp置" />
+          </form>
+
+          <!-- <button id="ok" type="submit">确定</button>
+          <button id="cancel" type="reset">取消</button> -->
+        </div>
+      </div>
+
+      <!-- 更新事件弹窗 -->
+      <div id="show" style="display: none">
+        <div class="pop_hll">
+          <!-- <p>事件添加</p> -->
+          <form action="">
+            <a href="#" id="popup-closer" class="ol-popup-closer_hll"></a>
+            <div id="popup-content_hll">
+              <table id="biao_hll">
+                <tr>
+                  <td class="t1">事件编号</td>
+                  <td>
+                    <!-- <textarea name="" id="" cols="30" rows="1"></textarea> -->
+                    <span id="bianhao">000</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1">事件等级</td>
+                  <td>
+                    <!-- <select>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select> -->
+                    <span id="dengji">000</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1">事件类型</td>
+                  <td>
+                    <!-- <textarea name=""  cols="30" rows="1"></textarea> -->
+                    <span id="leixing">000</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1">发生时间</td>
+                  <td>
+                    <!-- <textarea name="" id="" cols="30" rows="1"></textarea> -->
+                    <span id="shijian">000</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1">发生地点</td>
+                  <td>
+                    <!-- <textarea name="" id="" cols="30" rows="1"></textarea> -->
+                    <span id="didian">000</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1">车牌号</td>
+                  <td>
+                    <!-- <textarea name="" id="" cols="30" rows="1"></textarea> -->
+                    <span id="chepai">000</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1">驾驶员</td>
+                  <td>
+                    <!-- <textarea name="" id="" cols="30" rows="1"></textarea> -->
+                    <span id="jiashiyuan">000</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="t1">处理状态</td>
+                  <td>
+                    <select font-size="24px" id="type1">
+                      <option value="0">❓待处理</option>
+                      <option value="1">⚠️处理中</option>
+                      <option value="2">✅已归档</option>
+                    </select>
+                    <!-- <span id="oldtype">000</span> -->
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <input id="ok_hll" type="submit" value="确&nbsp&nbsp定" />
+            <input id="cancel_hll" type="reset" value="重&nbsp&nbsp置" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 地图控件
+      const TiandiMap_vec = new ol.layer.Tile({
+        title: '天地图矢量图层',
+        source: new ol.source.XYZ({
+          url:
+            'http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=' +
+            '417523717569c652742330aee3017c8e',
+          wrapX: false,
+
+          //  crossOrigin: "Anonymous" 解决跨域问题
+          crossOrigin: 'Anonymous',
+        }),
+      });
+      const TiandiMap_cva = new ol.layer.Tile({
+        title: '天地图矢量注记图层',
+        source: new ol.source.XYZ({
+          url:
+            'http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=' +
+            '417523717569c652742330aee3017c8e',
+          wrapX: false,
+          crossOrigin: 'Anonymous',
+        }),
+      });
+      const TiandiMap_img = new ol.layer.Tile({
+        title: '天地图影像层',
+        source: new ol.source.XYZ({
+          url:
+            'http://t0.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' +
+            'a0223578705704127cb29fef0fd59782',
+          wrapX: false,
+          crossOrigin: 'Anonymous',
+        }),
+      });
+      const TiandiMap_cia = new ol.layer.Tile({
+        title: '天地图层',
+        source: new ol.source.XYZ({
+          url:
+            'http://t0.tianditu.com/DataServer?T=cia_w&x={x}&y={y}&l={z}&tk=' +
+            'a0223578705704127cb29fef0fd59782',
+          wrapX: false,
+          crossOrigin: 'Anonymous',
+        }),
+      });
+      const doclayer = new Zondy.Map.Doc('', 'plm', {
+        title: '光谷交通数据层',
+        ip: '39.108.94.40',
+        port: '6163',
+        crossOrigin: 'Anonymous',
+      });
+      const docLayer2 = new Zondy.Map.Doc('', '事件', {
+        ip: '39.108.94.40',
+        port: '6163',
+      });
+      const vec_data = new ol.layer.Vector({
+        title: 'Vector层',
+        source: new ol.source.Vector({
+          url: '../../data',
+          format: new ol.format.GeoJSON(),
+          crossOrigin: 'Anonymous',
+        }),
+      });
+      const realTimeLayer1 = new Zondy.Map.Doc('', '武汉光谷道路', {
+        title: '武汉光谷道路',
+        ip: '39.108.94.40',
+        port: '6163',
+      });
+      const realTimeLayer2 = new Zondy.Map.Doc('', '实时路况线', {
+        title: '实时路况线',
+        ip: '39.108.94.40',
+        port: '6163',
+      });
+      //这样写可以解决画布污染问题
+      const map = new ol.Map({
+        crossOrigin: 'Anonymous',
+        target: 'mapCon',
+        layers: [
+          TiandiMap_vec,
+          TiandiMap_cva,
+          TiandiMap_img,
+          TiandiMap_cia,
+          doclayer,
+          vec_data,
+          docLayer2,
+        ],
+        view: new ol.View({
+          center: [114.38, 30.49],
+          zoom: 13,
+          projection: 'EPSG:4326',
+          minZoom: 3,
+          maxZoom: 18,
+        }),
+      });
+
+      TiandiMap_img.setVisible(false);
+      TiandiMap_cia.setVisible(false);
+      // realTimeLayer2.setVisible(false)
+
+      // 事件更新开始
+      let highLightSource_hll = new ol.source.Vector({
+        wrapX: false,
+      });
+      const highLightLayer_hll = new ol.layer.Vector({
+        source: highLightSource_hll,
+        style: new ol.style.Style({
+          image: new ol.style.Circle({
+            radius: 5, //半径
+            fill: new ol.style.Fill({
+              //填充样式
+              color: '#ff6688',
+            }),
+          }),
+          stroke: new ol.style.Stroke({
+            color: 'yellow',
+            width: 4,
+          }),
+        }),
+      });
+      map.addLayer(highLightLayer_hll);
+      // let draw_hll
+      //实例化一个矢量图层作为绘制层
+      var drawsource_hll = new ol.source.Vector({
+        wrapX: false,
+      });
+
+      function startQuery_hll() {
+        //实例化交互绘制类对象并添加到地图中
+        draw_hll = new ol.interaction.Draw({
+          //绘制层数据源
+          source: drawsource_hll,
+          type: 'Point',
+        });
+        draw_hll.on('drawend', function (e) {
+          const point = e.feature.getGeometry().getCoordinates();
+          queryByPoint_hll(point[0], point[1]);
+        });
+        map.addInteraction(draw_hll);
+      }
+
+      function queryByPoint_hll(x, y) {
+        pointObj = new Zondy.Object.Point2D(x, y);
+        //设置查询点的搜索半径
+        pointObj.nearDis = 0.001;
+        //初始化查询结构对象，设置查询结构包含几何信息
+        var queryStruct = new Zondy.Service.QueryFeatureStruct();
+        //是否包含几何图形信息
+        queryStruct.IncludeGeometry = true;
+        //是否包含属性信息
+        queryStruct.IncludeAttribute = true;
+        //是否包含图形显示参数
+        queryStruct.IncludeWebGraphic = true;
+
+        //创建查询规则
+        var rule = new Zondy.Service.QueryFeatureRule({
+          //是否将要素的可见性计算在内
+          EnableDisplayCondition: false,
+          //是否完全包含
+          MustInside: false,
+          //是否仅比较要素的外包矩形，来判定是否与几何约束图形有交集
+          CompareRectOnly: false,
+          //是否相交
+          Intersect: true,
+        });
+
+        //实例化查询参数对象
+        var queryParam = new Zondy.Service.QueryParameter({
+          geometry: pointObj,
+          resultFormat: 'json',
+          struct: queryStruct,
+          rule: rule,
+        });
+
+        //设置查询分页号
+        queryParam.pageIndex = 0;
+        //设置查询要素数目
+        queryParam.recordNumber = 20;
+
+        //实例化地图文档查询服务对象
+        var queryService = new Zondy.Service.QueryDocFeature(
+          queryParam,
+          '事件',
+          '0',
+          {
+            ip: '39.108.94.40',
+            port: '6163',
+          }
+        );
+        //执行查询操作，querySuccess为查询回调函数
+        queryService.query(querySuccess, queryError);
+        // queryParam.Object.FID
+      }
+
+      function queryError(e) {
+        alert(e);
+      }
+
+      var fid1;
+      var x1;
+      var y1;
+
+      function querySuccess(result) {
+        if (result.TotalCount === 0) {
+          alert('点击点无数据');
+          return;
+        }
+        clear();
+        var format = new Zondy.Format.PolygonJSON();
+        var features = format.read(result);
+        highLightSource_hll.addFeatures(features);
+        fid1 = result.SFEleArray[0].FID;
+        x1 = result.SFEleArray[0].fGeom.PntGeom[0].Dot.x;
+        y1 = result.SFEleArray[0].fGeom.PntGeom[0].Dot.y;
+        bianhao1 = result.SFEleArray[0].AttValue[0];
+        leixing1 = result.SFEleArray[0].AttValue[1];
+        dengji1 = result.SFEleArray[0].AttValue[2];
+        shijian1 = result.SFEleArray[0].AttValue[3];
+        didian1 = result.SFEleArray[0].AttValue[4];
+        chepai1 = result.SFEleArray[0].AttValue[5];
+        jiashiyuan1 = result.SFEleArray[0].AttValue[6];
+        // oldtype1 = result.SFEleArray[0].AttValue[7];
+
+        // console.log(bianhao1)
+        // console.log(result);
+        document.getElementById('bianhao').innerText = bianhao1;
+        document.getElementById('leixing').innerText = leixing1;
+        document.getElementById('dengji').innerText = dengji1;
+        document.getElementById('shijian').innerText = shijian1;
+        document.getElementById('didian').innerText = didian1;
+        document.getElementById('chepai').innerText = chepai1;
+        document.getElementById('jiashiyuan').innerText = jiashiyuan1;
+        // document.getElementById('oldtype').innerText = oldtype1;
+
+        $(function () {
+          $('#show').css('display', 'block');
+        });
+      }
+
+      function stopQuery() {
+        map.removeInteraction(draw_hll);
+        clear();
+      }
+
+      function clear() {
+        highLightSource_hll = null;
+        highLightLayer_hll.setSource(highLightSource_hll);
+        highLightSource_hll = new ol.source.Vector({
+          wrapX: false,
+        });
+        highLightLayer_hll.setSource(highLightSource_hll);
+      }
+
+      $('#popup-closer').click(function () {
+        $('#show').css('display', 'none');
+      });
+
+      $('#ok_hll').click(function () {
+        $('#show').css('display', 'none');
+        var etype = $('#type1 option:selected').val();
+        // alert(etype)
+        if (etype == 0) {
+          updatePoint(6, fid1, x1, y1);
+        }
+        if (etype == 1) {
+          updatePoint(4, fid1, x1, y1);
+        }
+        if (etype == 2) {
+          updatePoint(90, fid1, x1, y1);
+        }
+      });
+
+      function updatePoint(color, fid, x, y) {
+        var color;
+        //创建一个点形状,描述点形状的几何信息
+        var gpoint = new Zondy.Object.GPoint(x, y);
+        //设置当前点要素的几何信息
+        var fGeom = new Zondy.Object.FeatureGeometry({
+          PntGeom: [gpoint],
+        });
+        //设置点要素的图形信息
+        var pointInfo = new Zondy.Object.CPointInfo({
+          Angle: 0,
+          Color: color,
+          Space: 0,
+          SymHeight: 5,
+          SymID: 21,
+          SymWidth: 5,
+        });
+        //设置当前点要素图形参数信息
+        var webGraphicInfo = new Zondy.Object.WebGraphicsInfo({
+          InfoType: 1,
+          PntInfo: pointInfo,
+        });
+        //设置添加点要素的属性信息
+        var attValue = [];
+        //创建一个要素
+        var newFeature = new Zondy.Object.Feature({
+          fGeom: fGeom,
+          GraphicInfo: webGraphicInfo,
+          AttValue: attValue,
+        });
+        //设置要素为点要素
+        newFeature.setFType(1);
+        //设置FID---被选中点的OID，可以在桌面端查看
+        //newFeature.setFID(document.getElementById('ID').value);
+        newFeature.setFID(fid);
+        //创建一个要素数据集
+        var featureSet = new Zondy.Object.FeatureSet();
+        featureSet.clear();
+        //设置属性结构
+        var cAttStruct = new Zondy.Object.CAttStruct({
+          FldName: [],
+          FldNumber: 0,
+          FldType: [],
+        });
+        featureSet.AttStruct = cAttStruct;
+        //添加要素到要素数据集
+        featureSet.addFeature(newFeature);
+        //创建一个编辑服务类
+        var editService = new Zondy.Service.EditDocFeature('事件', 0, {
+          //ip地址
+          ip: '39.108.94.40',
+          //访问IGServer的端口号：.net6163 java8089
+          port: '6163',
+        });
+        //执行添加点要素功能
+        editService.add(featureSet, onSuccess);
+      }
+
+      function onSuccess(data) {
+        console.log(data);
+        if (data.succeed) {
+          alert('修改要素成功！');
+          //docLayer.refresh();
+        } else {
+          alert('修改要素失败！');
+        }
+      }
+      //事件更新结束
+
+      //加载测量的绘制矢量层
+      var source = new ol.source.Vector(); //图层数据源
+      var vector = new ol.layer.Vector({
+        crossOrigin: 'Anonymous',
+        source: source,
+        style: new ol.style.Style({
+          //图层样式
+          fill: new ol.style.Fill({
+            color: 'rgba(255, 255, 255, 0.5)', //填充颜色
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#ffcc33', //边框颜色
+            width: 2, // 边框宽度
+          }),
+          image: new ol.style.Circle({
+            radius: 7,
+            fill: new ol.style.Fill({
+              color: '#ffcc33',
+            }),
+          }),
+        }),
+      });
+
+      map.addLayer(vector);
+
+      var clickvec_jishuqi = 0;
+      // 地图控件和基本操作
+      function qiehuan_vecimg() {
+        clickvec_jishuqi++;
+        if (clickvec_jishuqi % 2 != 0) {
+          change2image();
+          $('#qiehuan_vecimg').css(
+            'background-image',
+            'url(./images/button_vec.jpg)'
+          );
+        } else {
+          change2vector();
+          $('#qiehuan_vecimg').css(
+            'background-image',
+            'url(./images/button_img.jpg)'
+          );
+        }
+      }
+
+      function change2vector() {
+        TiandiMap_img.setVisible(false);
+        TiandiMap_cia.setVisible(false);
+        TiandiMap_vec.setVisible(true);
+        TiandiMap_cva.setVisible(true);
+      }
+
+      function change2image() {
+        TiandiMap_img.setVisible(true);
+        TiandiMap_cia.setVisible(true);
+        TiandiMap_vec.setVisible(false);
+        TiandiMap_cva.setVisible(false);
+      }
+      //制定范围缩放
+      const ZoomToExtent = new ol.control.ZoomToExtent({
+        extent: [114.3, 30.47, 114.45, 30.51],
+      });
+      //实例化
+      map.addControl(ZoomToExtent);
+      //滑块控件
+      const zoomslider = new ol.control.ZoomSlider();
+      //实例化
+      map.addControl(zoomslider);
+
+      //鼠标样式
+      const mousePositionControl = new ol.control.MousePosition({
+        coordinateFormat: ol.coordinate.createStringXY(4),
+        peojection: 'EPSG:4326',
+        className: 'custom-mouse-position',
+        target: document.getElementById('mouse-position'),
+        undefinedHTML: '&nbsp;',
+      });
+      map.addControl(mousePositionControl);
+
+      //实时比例尺控件
+      const scaleLineControl = new ol.control.ScaleLine({
+        //比例尺单位
+        units: 'metric',
+      });
+      map.addControl(scaleLineControl);
+    </script>
+    <script src="./js/xuanfutankuang.js"></script>
+    <script>
+      // 地图文档显示
+      let layer = new Array(); //map中的图层数组
+      let layerName = new Array(); //图层名称数组
+      let layerVisibility = new Array(); //图层可见属性数组
+      loadLayersControl(map, 'layerTree');
+
+      // 添加图层目录
+      function loadLayersControl(map, id) {
+        let treeContent = document.getElementById(id); //图层目录容器
+        // let layers = map.getLayers(); //获取地图中所有图层
+        let layers = map.getLayers(); //获取地图中所有图层
+        console.log(layers);
+        // console.log(layers.array_[0].values_.title);
+        for (let i = 0; i < layers.getLength() - 1; i++) {
+          //获取每个图层的名称、是否可见属性
+
+          layer[i] = layers.item(i);
+          layerName[i] = layers.array_[i].values_.title;
+
+          layerVisibility[i] = layer[i].getVisible();
+
+          if (
+            layerName[i] == '天地图矢量图层' ||
+            layerName[i] == '天地图矢量注记图层' ||
+            layerName[i] == '天地图影像层' ||
+            layerName[i] == '天地图层' ||
+            layerName[i] == 'Vector层'
+          ) {
+            continue;
+          }
+
+          //新增li元素，用来承载图层项
+          let elementLi = document.createElement('li');
+          treeContent.appendChild(elementLi); // 添加子节点
+          //创建复选框元素
+          let elementInput = document.createElement('input');
+          elementInput.type = 'checkbox';
+          elementInput.name = 'layers';
+          elementLi.appendChild(elementInput);
+          //创建label元素
+          let elementLable = document.createElement('label');
+          elementLable.className = 'layer';
+          //设置图层名称
+          setInnerText(elementLable, layerName[i]);
+          elementLi.appendChild(elementLable);
+
+          //设置图层默认显示状态
+          if (layerVisibility[i]) {
+            elementInput.checked = true;
+          }
+          addChangeEvent(elementInput, layer[i]); //为checkbox添加变更事件
+        }
+      }
+
+      function setInnerText(element, text) {
+        if (typeof element.textContent == 'string') {
+          element.textContent = text;
+        } else {
+          element.innerText = text;
+        }
+      }
+
+      function addChangeEvent(element, layer) {
+        element.onclick = function () {
+          if (element.checked) {
+            layer.setVisible(true); //显示图层
+          } else {
+            layer.setVisible(false); //不显示图层
+          }
+        };
+      }
+    </script>
+
+    <script>
+      // 工具箱下拉框
+      function xianshi() {
+        jishuqi++;
+        if (jishuqi % 2 != 0) {
+          $('.suibianshezhi').css('display', 'block');
+        } else {
+          $('.suibianshezhi').css('display', 'none');
+        }
+      }
+      // function xianshi() {
+      //   jishuqi++
+      //   if (jishuqi % 2 != 0) {
+      //     $('.suibianshezhi').css('display', 'block')
+      //   } else {
+      //     $('.suibianshezhi').css('display', 'none')
+      //   }
+      // }
+      function showDialog() {
+        $('#dialog').css('display', 'block');
+        console.log($('#dialog').css('display', 'block'));
+      }
+    </script>
+    <script>
+      // 实时路况分析
+
+      var i = 1;
+
+      function attrQuery() {
+        if (i % 2 == 1) {
+          map.addLayer(realTimeLayer2);
+          realTimeLayer2.setVisible(true);
+        }
+        if (i % 2 == 0) {
+          map.removeLayer(realTimeLayer2);
+          // realTimeLayer2.setVisible(false)
+        }
+        i++;
+      }
+    </script>
+    <script>
+      function addFeature_wfy() {
+        map.on('singleclick', (e) => {
+          console.log(e.coordinate);
+          const x = e.coordinate[0];
+          const y = e.coordinate[1];
+          // console.log(x);
+          // console.log(y);
+          addPoint(x, y);
+        });
+        //添加点
+        function addPoint(x, y) {
+          //(1)创建一个点形状,描述点形状的几何信息
+          var gpoint = new Zondy.Object.GPoint(x, y);
+          //(2)设置当前点要素的几何信息
+          var fGeom = new Zondy.Object.FeatureGeometry({
+            PntGeom: [gpoint],
+          });
+          //(3)设置点要素的图形信息
+          var pointInfo = new Zondy.Object.CPointInfo({
+            Angle: 0,
+            Color: 6,
+            SymHeight: 5,
+            SymID: 21,
+            SymWidth: 5,
+          });
+          var webGraphicInfo = new Zondy.Object.WebGraphicsInfo({
+            InfoType: 1,
+            PntInfo: pointInfo,
+          });
+          //(4)设置添加点要素的属性信息
+          var attValue = [];
+
+          //1.创建一个要素
+          var feature = new Zondy.Object.Feature({
+            fGeom: fGeom,
+            GraphicInfo: webGraphicInfo,
+            AttValue: attValue,
+          });
+          //设置要素为点要素
+          feature.setFType(1);
+
+          //创建一个要素数据集
+          var featureSet = new Zondy.Object.FeatureSet();
+          featureSet.clear();
+          //设置属性结构
+          var cAttStruct = new Zondy.Object.CAttStruct({
+            FldName: [],
+            FldNumber: 0,
+            FldType: [],
+          });
+          featureSet.AttStruct = cAttStruct;
+          //添加要素到要素数据集
+          featureSet.addFeature(feature);
+
+          //创建一个编辑服务类
+          var editService = new Zondy.Service.EditDocFeature('事件', 0, {
+            //ip地址
+            ip: '39.108.94.40',
+            //访问IGServer的端口号：.net6163 java8089
+            port: '6163',
+          });
+          //执行添加点要素功能
+          editService.add(featureSet, onPntSuccess);
+          $(function () {
+            $('#show_wfy').css('display', 'block');
+          });
+          // $('#show').css('display', 'block');
+        }
+
+        $('#popup-closer_wfy').click(function () {
+          $('#show_wfy').css('display', 'none');
+        });
+
+        $('#ok').click(function () {
+          $('#show_wfy').css('display', 'none');
+          alert('添加事件成功！');
+        });
+
+        function onPntSuccess(data) {
+          if (data.succeed) {
+            //alert('添加事件成功！');
+            //图层刷新方法
+            docLayer2.refresh();
+          } else {
+            alert('添加事件失败！');
+          }
+        }
+      }
+    </script>
+    <script src="./js/toolbox.js"></script>
+    <script src="./js/dituwendang.js">
+      //缺少css样式
+    </script>
+    <script src="./js/事件查询.js"></script>
+    <script>
+      // 视频监控
+      // var iconFeature = new ol.Feature({
+      //   geometry: new ol.geom.Point([114.415855, 30.508882]),
+      //   // geometry: new ol.geom.Point([114.34785445845215, 30.528867965789257]),
+      // })
+
+      var iconFeature02 = new ol.Feature({
+        geometry: new ol.geom.Point([114.347854, 30.528867]),
+      });
+      //图文标注
+      iconFeature02.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头2',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature03 = new ol.Feature({
+        geometry: new ol.geom.Point([114.363694, 30.521299]),
+      });
+      //图文标注
+      iconFeature03.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头3',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature04 = new ol.Feature({
+        geometry: new ol.geom.Point([114.374618, 30.507566]),
+      });
+      //图文标注
+      iconFeature04.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头4',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature05 = new ol.Feature({
+        geometry: new ol.geom.Point([114.3935788063262, 30.50842465718554]),
+      });
+      //图文标注
+      iconFeature05.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头5',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature06 = new ol.Feature({
+        geometry: new ol.geom.Point([114.39256444412045, 30.500621867562156]),
+      });
+      //图文标注
+      iconFeature06.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头6',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature07 = new ol.Feature({
+        geometry: new ol.geom.Point([114.40653143987753, 30.49929539209509]),
+      });
+      //图文标注
+      iconFeature07.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头7',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature08 = new ol.Feature({
+        geometry: new ol.geom.Point([114.40754579684459, 30.51014127095507]),
+      });
+      //图文标注
+      iconFeature08.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头8',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature09 = new ol.Feature({
+        geometry: new ol.geom.Point([114.41823562004568, 30.508970850957816]),
+      });
+      //图文标注
+      iconFeature09.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头9',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature10 = new ol.Feature({
+        geometry: new ol.geom.Point([114.416440981235, 30.497656806134877]),
+      });
+      //图文标注
+      iconFeature10.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头10',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature11 = new ol.Feature({
+        geometry: new ol.geom.Point([114.38991149527935, 30.48189517277871]),
+      });
+      //图文标注
+      iconFeature11.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头11',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature12 = new ol.Feature({
+        geometry: new ol.geom.Point([114.40387848579773, 30.4815050318569]),
+      });
+      //图文标注
+      iconFeature12.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头12',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature13 = new ol.Feature({
+        geometry: new ol.geom.Point([114.4154266162215, 30.480412641990657]),
+      });
+      //图文标注
+      iconFeature13.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头13',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature14 = new ol.Feature({
+        geometry: new ol.geom.Point([114.41456830933673, 30.467381983398187]),
+      });
+      //图文标注
+      iconFeature14.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头14',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature15 = new ol.Feature({
+        geometry: new ol.geom.Point([114.40208384698705, 30.465275231326192]),
+      });
+      //图文标注
+      iconFeature15.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头15',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature16 = new ol.Feature({
+        geometry: new ol.geom.Point([114.38483968163125, 30.463792692680105]),
+      });
+      //图文标注
+      iconFeature16.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头16',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature17 = new ol.Feature({
+        geometry: new ol.geom.Point([114.36143155757308, 30.490619422100885]),
+      });
+      //图文标注
+      iconFeature17.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头17',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature18 = new ol.Feature({
+        geometry: new ol.geom.Point([114.3439533092358, 30.51262329046282]),
+      });
+      //图文标注
+      iconFeature18.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头18',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature19 = new ol.Feature({
+        geometry: new ol.geom.Point([114.33349756605894, 30.4823484638952]),
+      });
+      //图文标注
+      iconFeature19.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头19',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      var iconFeature01 = new ol.Feature({
+        geometry: new ol.geom.Point([114.32116916426894, 30.460968827294586]),
+      });
+      //图文标注
+      iconFeature01.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            anchor: [0.5, 70],
+            anchorOrigin: 'top-right',
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            offsetOrigin: 'top-right',
+            //透明度
+            opacity: 0.75,
+            //图标的url
+            src: './images/blueIcon.png',
+          }),
+          //文
+          text: new ol.style.Text({
+            //位置
+            textAlign: 'center',
+            //基准线
+            textBaseline: 'middle',
+            //文字样式
+            font: 'normal 20px 宋体',
+            //文本内容
+            text: '摄像头1',
+            //文本填充样式（即文字颜色）
+            fill: new ol.style.Fill({
+              color: 'blue',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 0.5,
+            }),
+          }),
+        })
+      );
+
+      //创建矢量标注的数据源
+      var vectorSource = new ol.source.Vector({
+        features: [
+          iconFeature01,
+          iconFeature02,
+          iconFeature03,
+          iconFeature04,
+          iconFeature05,
+          iconFeature06,
+          iconFeature07,
+          iconFeature08,
+          iconFeature09,
+          iconFeature10,
+          iconFeature11,
+          iconFeature12,
+          iconFeature13,
+          iconFeature14,
+          iconFeature15,
+          iconFeature16,
+          iconFeature17,
+          iconFeature18,
+          iconFeature19,
+        ],
+        wrapX: false,
+      });
+      //创建矢量标注图层
+      var vectorLayer_camera = new ol.layer.Vector({
+        source: vectorSource,
+      });
+      //把矢量图层旅加到地图中
+      // map.addLayer(vectorLayer_camera)
+      var iii = 1;
+
+      function camera_attrQuery() {
+        if (iii % 2 == 1) {
+          map.addLayer(vectorLayer_camera);
+          //事件监听，注册点击事件
+          key_camera = map.on('click', clickMaker);
+          // realTimeLayer2.setVisible(true)
+        }
+        if (iii % 2 == 0) {
+          ol.Observable.unByKey(key_camera);
+          map.removeLayer(vectorLayer_camera);
+          // realTimeLayer2.setVisible(false)
+        }
+        iii++;
+      }
+
+      //实现popup内htmL元素显示
+      var container = document.getElementById('popup_camera');
+      var content = document.getElementById('popup-content_camera');
+      var closer = document.getElementById('popup-closer_camera');
+
+      var popup = new ol.Overlay({
+        //要转换成overlay的HTML元素
+        element: container,
+        //当前窗口可见 autoPan:true,
+        autoPan: true,
+        //Popup放置的位置
+        positioning: 'bottom-center',
+        //是否应该停止事件传播到地图窗口
+        stopEvent: false,
+        autoPanAnimation: {
+          //当Popup超出地图边界时，为了Popup全部可见，地图移动的速度
+          duration: 250,
+        },
+      });
+      map.addOverlay(popup);
+
+      function setInfo1() {
+        const info = `
+            <div class="markerInfo"><h2>摄像头1</h2>............</div>
+            <video src="./images/莲花新洲路口南段（190.192.11.134）.mp4" autoplay mute controls loop width="500px"></video>
+        `;
+        //在指定地方插入html标签语句 insertAdajcentHTML(swhere, stext)
+        //swhere: 指定插入html标签语句的地方，stext：要插入的内容
+        //beforeEnd: 插入到标签结束标记前
+        content.insertAdjacentHTML('beforeEnd', info);
+      }
+
+      function setInfo2() {
+        const info = `
+            <div class="markerInfo"><h2>摄像头1</h2>............</div>
+            <video src="./images/莲花新洲路口正中（190.192.11.133）.mp4" autoplay mute controls loop width="500px"></video>
+        `;
+        //在指定地方插入html标签语句 insertAdajcentHTML(swhere, stext)
+        //swhere: 指定插入html标签语句的地方，stext：要插入的内容
+        //beforeEnd: 插入到标签结束标记前
+        content.insertAdjacentHTML('beforeEnd', info);
+      }
+
+      var clickMaker = function (evt) {
+        //判断当前单击处是否有要素,擒获到要素时弹出popup
+        var feature = map.forEachFeatureAtPixel(
+          evt.pixel,
+          function (feature, Layer) {
+            return feature;
+          }
+        );
+        if (feature) {
+          //清空popup的容器内的内容
+          content.innerHTML = '';
+          //在popup中加载当前要素的具体信息
+          // console.log(feature)
+          // var arr1 = [
+          //   '摄像头1',
+          //   '摄像头3',
+          //   '摄像头5',
+          //   '摄像头7',
+          //   '摄像头9',
+          //   '摄像头11',
+          //   '摄像头13',
+          //   '摄像头15',
+          //   '摄像头17',
+          //   '摄像头19',
+          // ]
+          // if (Number(feature.style_.text_.text_.slice(-1)) % 2 == 0) {
+          //   setInfo1()
+          // } else {
+          //   setInfo2()
+          // }
+          setInfo1();
+          if (popup.getPosition() === undefined) {
+            //设置popup的位置------从获取到的feature中获取坐标
+            popup.setPosition(feature.getGeometry().getCoordinates());
+          }
+        }
+      };
+
+      //添加关闭按钮的单击事件（隐藏popup）
+      closer.onclick = function () {
+        //未定义popup位置
+        popup.setPosition(undefined);
+      };
+    </script>
+    <script src="./js/toolbox.js"></script>
+    <script src="./js/pub_notice.js"></script>
+    <script src="./js/query_notice.js"></script>
+    <script src="./js/auth_context.js"></script>
+    <script>
+      let token_admin_wxh = localStorage.getItem('token') || '';
+      let user_name_admin_wxh;
+      if (token_admin_wxh != '') {
+        tokenAuth(token_admin_wxh, function (data) {
+          user_name_admin_wxh = data[0].user_name;
+          $('#username-span-wxh').text('你好，' + user_name_admin_wxh);
+        });
+      } else {
+        alert('登录信息失效，请重新登录');
+        window.open('./index_login.html');
+      }
+
+      $('#logout-admin-wxh').click(logout_wxh);
+    </script>
+  </body>
+</html>

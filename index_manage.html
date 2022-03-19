@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>用户管理</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  <link rel="stylesheet" href="./css/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/bower_components/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="./css/bower_components/Ionicons/css/ionicons.min.css" />
+  <link rel="stylesheet" href="./css/dist/css/AdminLTE.min.css" />
+  <link rel="stylesheet" href="./css/dist/css/skins/skin-blue.min.css" />
+  <!-- <style>
+      #textarea_temp {
+        width: 300px;
+        height: 80px;
+        border: 5px solid rgb(0, 22, 95);
+        outline: none;
+        resize: vertical;
+        font-size: 20px;
+        background-color: rgb(164, 207, 243);
+      }
+      /* #ul1 {
+        margin-top: 160px;
+      } */
+      #ul1 li {
+        width: 300px;
+        padding: 5px;
+        background-color: rgb(240, 181, 194);
+        color: rgb(245, 25, 55);
+        font-size: 15px;
+        font-style: '仿宋';
+        margin: 0;
+      }
+      li a {
+        float: right;
+        /* width: 50px;
+        height: 20px; */
+        color: rgb(61, 61, 61);
+      }
+  </style> -->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
+    <!-- 顶栏 -->
+    <header class="main-header">
+      <!-- 顶栏最左-->
+      <a href="#" class="logo">
+        <span class="logo-lg">用户管理</span>
+      </a>
+
+      <!-- 顶栏三道杠 -->
+      <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- 右上角账号下拉栏 -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="./css/dist/img/avatar5.png" class="user-image" alt="User Image" />
+                <span class="hidden-xs" id="username-displayer">你好，管理员</span>
+              </a>
+            </li>
+            <li class="dropdown user user-menu">
+              <a href="#" id="logout">退出登录</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- 左栏 -->
+    <aside class="main-sidebar">
+      <section class="sidebar">
+        <!-- 左栏上方的本账号状态显示 -->
+        <div class="user-panel">
+          <!-- 管理员头像 -->
+          <div class="pull-left image">
+            <img src="./css/dist/img/avatar5.png" class="img-circle" alt="User Image" />
+          </div>
+          <div class="pull-left info">
+            <p>管理员</p>
+            <!-- 本账号在线状态显示 -->
+            <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+          </div>
+        </div>
+
+        <!-- 左侧目录 -->
+        <ul class="sidebar-menu" data-widget="tree">
+          <li class="header">MENU</li>
+          <li class="active">
+            <a href="#"><i class="fa fa-users"></i> <span>全部用户</span></a>
+          </li>
+        </ul>
+      </section>
+    </aside>
+
+    <!-- 中部区域 -->
+    <div class="content-wrapper">
+      <!-- 标题 -->
+      <section class="content-header">
+        <h1>
+          用户列表
+          <small>管理员，你好！</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li>
+            <a href="/"><i class="fa fa-home"></i>主页</a>
+          </li>
+          <li class="active">用户管理</li>
+        </ol>
+        <!-- <textarea name="" id="textarea_temp" cols="30" rows="10"></textarea>
+      <button>submit</button> -->
+      </section>
+
+      <!-- 主要表格内容 -->
+      <section class="content container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="box">
+              <!-- 用户列表表头 -->
+              <div class="box-body no-padding">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>序号</th>
+                      <th>用户名</th>
+                      <!-- <th>密码</th> -->
+                      <th>用户类型</th>
+                      <th>在线状态</th>
+                      <th>其他</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-users"></tbody>
+                </table>
+              </div>
+              <!-- <ul id="ul1"></ul> -->
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-xs-6" style="margin-left: 80px">
+                <div class="small-box bg-green">
+                  <div class="inner">
+                    <h3 id="number-users">0</h3>
+
+                    <p>用户总数</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-xs-6">
+                  <div class="small-box bg-yellow">
+                    <div class="inner">
+                      <h3 id="number-admin">0</h3>
+                      <p>Administradores</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-pie-graph"></i>
+                    </div>
+                  </div>
+                </div> -->
+            </div>
+
+            <div class="box box-success" id="box-user-create">
+              <div class="box-header with-border">
+                <h3 class="box-title">注册用户</h3>
+              </div>
+              <!-- 注册控件 -->
+              <form role="form" id="form-user-create">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="reg_username">用户名</label>
+                    <input type="text" required class="form-control" id="reg_username" placeholder="请设置用户名"
+                      name="username" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="reg_pwd">密码</label>
+                    <input type="password" required class="form-control" id="reg_pwd" placeholder="请设置密码"
+                      name="password" />
+                  </div>
+                  <div class="form-group" id="reg_type">
+                    <label>用户类型</label>
+                    <div class="radio" style="margin-left: 30px">
+                      <label>
+                        <input type="radio" name="type" value="admin" /> 管理员
+                      </label>
+                    </div>
+                    <div class="radio" style="margin-left: 30px">
+                      <label>
+                        <input type="radio" name="type" value="traffic" /> 交通部门
+                      </label>
+                    </div>
+                    <div class="radio" style="margin-left: 30px">
+                      <label>
+                        <input type="radio" name="type" value="common" checked /> 普通用户
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-footer" style="margin-left: 130px">
+                  <button type="submit" class="btn btn-success">提交</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="box box-primary" id="box-user-update" style="display: none">
+              <div class="box-header with-border">
+                <h3 class="box-title">修改</h3>
+              </div>
+              <!-- 修改用户信息时的控件 -->
+              <form role="form" id="form-user-update">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="edit_userID">用户ID</label>
+                    <input type="text" required class="form-control" id="edit_userID" name="user_id" disabled />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit_username">用户名</label>
+                    <input type="text" required class="form-control" id="edit_username" placeholder="请设置用户名"
+                      name="username" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="edit_pwd">密码</label>
+                    <input type="password" required class="form-control" id="edit_pwd" placeholder="请设置密码"
+                      name="password" />
+                  </div>
+                  <!-- <div class="checkbox">
+                  <label> <input type="checkbox" name="admin" /> 管理员 </label>
+                  <label> <input type="checkbox" name="admin" /> 交通部门 </label>
+                  <label> <input type="checkbox" name="admin" /> 普通用户 </label>
+                </div> -->
+                  <div class="form-group" id="edit_type">
+                    <label>用户类型</label>
+                    <div class="radio" style="margin-left: 30px">
+                      <label>
+                        <input type="radio" name="type" value="admin" /> 管理员
+                      </label>
+                    </div>
+                    <div class="radio" style="margin-left: 30px">
+                      <label>
+                        <input type="radio" name="type" value="traffic" /> 交通部门
+                      </label>
+                    </div>
+                    <div class="radio" style="margin-left: 30px">
+                      <label>
+                        <input type="radio" name="type" value="common" checked /> 普通用户
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary" id="btn_alter">保存</button>
+                  <button type="button" class="btn btn-default btn-cancel">
+                    取消
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <nav aria-label="...">
+          <ul class="pagination">
+          </ul>
+        </nav>
+      </section>
+    </div>
+
+    <!-- 最底 -->
+    <footer class="main-footer">
+      @ 2021 Huazhong Agricultural University
+    </footer>
+  </div>
+
+  <script src="./libs/jquery.min.js"></script>
+  <script src="./js/auth_context.js"></script>
+  <script src="./js/ajax.js"></script>
+  <script src="./js/CRUD.js"></script>
+  <script src="./index_manage.js"></script>
+</body>
+
+</html>
